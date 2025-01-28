@@ -3,36 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini App</title>
+    <title>Рулетка</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+        }
+        .roulette-container {
+            width: 80%;
+            overflow: hidden;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            position: relative;
+        }
+        .roulette {
+            display: flex;
+            transition: transform 3s ease-out;
+        }
+        .cell {
+            flex: 0 0 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid #ccc;
+            background-color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .cell:last-child {
+            border-right: none;
+        }
+        .spin-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .spin-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Привет, это Mini App!</h1>
-        <button onclick="showAlert()">Нажми меня</button>
+    <div class="roulette-container">
+        <div class="roulette" id="roulette">
+            <!-- Ячейки рулетки -->
+            <div class="cell">1</div>
+            <div class="cell">2</div>
+            <div class="cell">3</div>
+            <div class="cell">4</div>
+            <div class="cell">5</div>
+            <div class="cell">6</div>
+            <div class="cell">7</div>
+            <div class="cell">8</div>
+            <div class="cell">9</div>
+            <div class="cell">10</div>
+            <div class="cell">11</div>
+            <div class="cell">12</div>
+            <div class="cell">13</div>
+            <div class="cell">14</div>
+            <div class="cell">15</div>
+        </div>
     </div>
+    <button class="spin-button" id="spinButton">Крутить рулетку</button>
 
     <script>
-        function showAlert() {
-            alert('Вы нажали кнопку!');
-        }
-    </script>
+        const roulette = document.getElementById('roulette');
+        const spinButton = document.getElementById('spinButton');
 
-    <script>
-        // Инициализация Telegram Web App
-        const tg = window.Telegram.WebApp;
+        spinButton.addEventListener('click', () => {
+            // Генерируем случайное число от 0 до 14 (индексы ячеек)
+            const randomCellIndex = Math.floor(Math.random() * 15);
+            // Вычисляем смещение для остановки на выбранной ячейке
+            const offset = -randomCellIndex * 100; // 100px — ширина одной ячейки
 
-        // Показать кнопку "Закрыть"
-        tg.MainButton.setText("Закрыть").show().onClick(() => {
-            tg.close();
+            // Анимируем прокрутку
+            roulette.style.transform = `translateX(${offset}px)`;
+
+            // Выводим уведомление после завершения анимации
+            setTimeout(() => {
+                alert(`Выиграла ячейка номер ${randomCellIndex + 1}`);
+            }, 3000); // Задержка равна длительности анимации (3 секунды)
         });
-
-        // Получить данные пользователя
-        const user = tg.initDataUnsafe.user;
-        if (user) {
-            console.log("User ID:", user.id);
-            console.log("First Name:", user.first_name);
-        }
     </script>
-
 </body>
 </html>

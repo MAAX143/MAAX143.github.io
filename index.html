@@ -24,7 +24,7 @@
         }
         .roulette {
             display: flex;
-            transition: transform 5s cubic-bezier(0.25, 0.1, 0.25, 1); /* Плавное ускорение и замедление */
+            transition: transform 15s cubic-bezier(0.25, 0.1, 0.25, 1); /* Плавное ускорение и замедление */
         }
         .cell {
             flex: 0 0 100px;
@@ -50,6 +50,7 @@
             border-left: 15px solid transparent;
             border-right: 15px solid transparent;
             border-bottom: 30px solid red; /* Указатель направлен вниз */
+            z-index: 1; /* Убедимся, что указатель всегда сверху */
         }
         .spin-button {
             margin-top: 20px;
@@ -118,14 +119,17 @@
             // Вычисляем смещение для остановки на выбранной ячейке
             const offset = -randomCellIndex * 100 - 50; // 100px — ширина одной ячейки, 50px — смещение для центра
 
+            // Генерируем случайное время кручения от 10 до 20 секунд
+            const spinDuration = Math.floor(Math.random() * 11) + 10; // От 10 до 20 секунд
+
             // Анимируем прокрутку с ускорением и замедлением
-            roulette.style.transition = 'transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)';
+            roulette.style.transition = `transform ${spinDuration}s cubic-bezier(0.25, 0.1, 0.25, 1)`;
             roulette.style.transform = `translateX(${offset}px)`;
 
             // Выводим уведомление после завершения анимации
             setTimeout(() => {
                 alert(`Выиграла ячейка номер ${randomCellIndex + 1}`);
-            }, 5000); // Задержка равна длительности анимации (5 секунд)
+            }, spinDuration * 1000); // Задержка равна длительности анимации
         });
     </script>
 </body>

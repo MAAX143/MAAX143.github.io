@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Рулетка с пружиной</title>
+    <title>Рулетка с ускорением и замедлением</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -24,7 +24,7 @@
         }
         .roulette {
             display: flex;
-            transition: transform 3s ease-out;
+            transition: transform 5s cubic-bezier(0.25, 0.1, 0.25, 1); /* Плавное ускорение и замедление */
         }
         .cell {
             flex: 0 0 100px;
@@ -42,14 +42,14 @@
         }
         .pointer {
             position: absolute;
-            top: 50%;
+            top: -20px; /* Указатель над рулеткой */
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateX(-50%);
             width: 0;
             height: 0;
             border-left: 15px solid transparent;
             border-right: 15px solid transparent;
-            border-top: 30px solid red;
+            border-bottom: 30px solid red; /* Указатель направлен вниз */
         }
         .spin-button {
             margin-top: 20px;
@@ -106,7 +106,7 @@
             <div class="cell">15</div>
         </div>
     </div>
-    <button class="spin-button" id="spinButton">Крутить</button>
+    <button class="spin-button" id="spinButton">Крутить рулетку</button>
 
     <script>
         const roulette = document.getElementById('roulette');
@@ -116,15 +116,16 @@
             // Генерируем случайное число от 0 до 14 (индексы ячеек)
             const randomCellIndex = Math.floor(Math.random() * 15);
             // Вычисляем смещение для остановки на выбранной ячейке
-            const offset = -randomCellIndex * 100; // 100px — ширина одной ячейки
+            const offset = -randomCellIndex * 100 - 50; // 100px — ширина одной ячейки, 50px — смещение для центра
 
-            // Анимируем прокрутку
+            // Анимируем прокрутку с ускорением и замедлением
+            roulette.style.transition = 'transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)';
             roulette.style.transform = `translateX(${offset}px)`;
 
             // Выводим уведомление после завершения анимации
             setTimeout(() => {
                 alert(`Выиграла ячейка номер ${randomCellIndex + 1}`);
-            }, 3000); // Задержка равна длительности анимации (3 секунды)
+            }, 5000); // Задержка равна длительности анимации (5 секунд)
         });
     </script>
 </body>

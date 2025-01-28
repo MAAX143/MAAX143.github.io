@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Рулетка с ускорением и замедлением</title>
+    <title>Рулетка с быстрым кручением</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -24,7 +24,7 @@
         }
         .roulette {
             display: flex;
-            transition: transform 15s cubic-bezier(0.25, 0.1, 0.25, 1); /* Плавное ускорение и замедление */
+            transition: transform 10s cubic-bezier(0.1, 0.7, 0.1, 1); /* Быстрое кручение с плавным замедлением */
         }
         .cell {
             flex: 0 0 100px;
@@ -47,9 +47,9 @@
             transform: translateX(-50%);
             width: 0;
             height: 0;
-            border-left: 15px solid transparent;
-            border-right: 15px solid transparent;
-            border-bottom: 30px solid red; /* Указатель направлен вниз */
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 20px solid red; /* Острый указатель вниз */
             z-index: 1; /* Убедимся, что указатель всегда сверху */
         }
         .spin-button {
@@ -69,7 +69,7 @@
 </head>
 <body>
     <div class="roulette-container">
-        <!-- Указатель (пружина) -->
+        <!-- Указатель (острый угол вниз) -->
         <div class="pointer"></div>
         <!-- Рулетка -->
         <div class="roulette" id="roulette">
@@ -117,13 +117,13 @@
             // Генерируем случайное число от 0 до 14 (индексы ячеек)
             const randomCellIndex = Math.floor(Math.random() * 15);
             // Вычисляем смещение для остановки на выбранной ячейке
-            const offset = -randomCellIndex * 100 - 50; // 100px — ширина одной ячейки, 50px — смещение для центра
+            const offset = -randomCellIndex * 100; // 100px — ширина одной ячейки
 
-            // Генерируем случайное время кручения от 10 до 20 секунд
-            const spinDuration = Math.floor(Math.random() * 11) + 10; // От 10 до 20 секунд
+            // Генерируем случайное время кручения от 5 до 10 секунд
+            const spinDuration = Math.floor(Math.random() * 6) + 5; // От 5 до 10 секунд
 
-            // Анимируем прокрутку с ускорением и замедлением
-            roulette.style.transition = `transform ${spinDuration}s cubic-bezier(0.25, 0.1, 0.25, 1)`;
+            // Анимируем прокрутку с быстрым кручением и плавным замедлением
+            roulette.style.transition = `transform ${spinDuration}s cubic-bezier(0.1, 0.7, 0.1, 1)`;
             roulette.style.transform = `translateX(${offset}px)`;
 
             // Выводим уведомление после завершения анимации

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Рулетка</title>
+    <title>Рулетка с пружиной</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -40,6 +40,17 @@
         .cell:last-child {
             border-right: none;
         }
+        .pointer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 30px solid red;
+        }
         .spin-button {
             margin-top: 20px;
             padding: 10px 20px;
@@ -57,6 +68,9 @@
 </head>
 <body>
     <div class="roulette-container">
+        <!-- Указатель (пружина) -->
+        <div class="pointer"></div>
+        <!-- Рулетка -->
         <div class="roulette" id="roulette">
             <!-- Ячейки рулетки -->
             <div class="cell">1</div>
@@ -74,9 +88,25 @@
             <div class="cell">13</div>
             <div class="cell">14</div>
             <div class="cell">15</div>
+            <!-- Дублируем ячейки для бесконечного эффекта -->
+            <div class="cell">1</div>
+            <div class="cell">2</div>
+            <div class="cell">3</div>
+            <div class="cell">4</div>
+            <div class="cell">5</div>
+            <div class="cell">6</div>
+            <div class="cell">7</div>
+            <div class="cell">8</div>
+            <div class="cell">9</div>
+            <div class="cell">10</div>
+            <div class="cell">11</div>
+            <div class="cell">12</div>
+            <div class="cell">13</div>
+            <div class="cell">14</div>
+            <div class="cell">15</div>
         </div>
     </div>
-    <button class="spin-button" id="spinButton">Крутить рулетку</button>
+    <button class="spin-button" id="spinButton">Крутить</button>
 
     <script>
         const roulette = document.getElementById('roulette');
